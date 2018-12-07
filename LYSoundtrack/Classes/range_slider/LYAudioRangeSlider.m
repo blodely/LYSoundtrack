@@ -1,5 +1,5 @@
 //
-//  LYMainViewController.m
+//  LYAudioRangeSlider.m
 //  LYSoundtrack
 //
 //	CREATED BY LUO YU ON 2018-12-07.
@@ -24,50 +24,53 @@
 //	THE SOFTWARE.
 //
 
-#import "LYMainViewController.h"
-#import <LYSoundtrack/LYSoundtrack.h>
-#import <Masonry/Masonry.h>
-#import <LYCore/LYCore.h>
+#import "LYAudioRangeSlider.h"
+#import <LYCategory/LYCategory.h>
 
 
-@interface LYMainViewController () {
-	
-	__weak LYAudioRangeSlider *slider;
-}
+@interface LYAudioRangeSlider () {}
 @end
 
-@implementation LYMainViewController
+@implementation LYAudioRangeSlider
 
-- (void)loadView {
-	[super loadView];
-	
-	{
-		self.navigationItem.title = @"LYSoundtrack";
+// MARK: - ACTION
+
+// MARK: - INIT
+
+- (instancetype)initWithFrame:(CGRect)frame {
+	if (self = [super initWithFrame:frame]) {
+		[self initial];
 	}
-	
-	{
-		LYAudioRangeSlider *view = [[LYAudioRangeSlider alloc] init];
-		[self.view addSubview:view];
-		slider = view;
-		[slider border1Px];
-		
-		[view mas_makeConstraints:^(MASConstraintMaker *make) {
-			make.top.equalTo(self.view.mas_safeAreaLayoutGuideTop).offset(100);
-			make.left.right.equalTo(self.view);
-			make.height.mas_equalTo(140);
-		}];
-		
-		UILabel *label = [[UILabel alloc] init];
-		label.text = @"Audio Range Slider ↓";
-		[self.view addSubview:label];
-		[label mas_makeConstraints:^(MASConstraintMaker *make) {
-			make.leading.equalTo(self->slider.mas_leading).offset(15);
-			make.bottom.equalTo(self->slider.mas_top).offset(-5);
-		}];
-	}
-	
-	/* debug feature */
-	[slider border1Px];
+	return self;
 }
+
+- (void)initial {
+	
+	self.backgroundColor = [UIColor clearColor];
+}
+
+// MARK: - METHOD
+
+// MARK: OVERRIDE
+
+- (void)drawRect:(CGRect)rect {
+	[super drawRect:rect];
+	
+}
+
+- (void)setFrame:(CGRect)frame {
+	[super setFrame:frame];
+}
+
+// MARK: PROPERTY
+
+// MARK: PRIVATE METHOD
+
+// MARK: - DELEGATE
+
+// MARK:
+
+// MARK: - NOTIFICATION
+
 
 @end

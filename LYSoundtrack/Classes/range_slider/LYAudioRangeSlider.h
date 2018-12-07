@@ -1,5 +1,5 @@
 //
-//  LYMainViewController.m
+//  LYAudioRangeSlider.h
 //  LYSoundtrack
 //
 //	CREATED BY LUO YU ON 2018-12-07.
@@ -24,50 +24,22 @@
 //	THE SOFTWARE.
 //
 
-#import "LYMainViewController.h"
-#import <LYSoundtrack/LYSoundtrack.h>
-#import <Masonry/Masonry.h>
-#import <LYCore/LYCore.h>
+#import <UIKit/UIKit.h>
 
 
-@interface LYMainViewController () {
-	
-	__weak LYAudioRangeSlider *slider;
-}
-@end
+@interface LYAudioRangeSlider : UIControl
 
-@implementation LYMainViewController
+@property (assign, nonatomic) NSUInteger minimumSeconds;
+@property (assign, nonatomic) NSUInteger maximumSeconds;
 
-- (void)loadView {
-	[super loadView];
-	
-	{
-		self.navigationItem.title = @"LYSoundtrack";
-	}
-	
-	{
-		LYAudioRangeSlider *view = [[LYAudioRangeSlider alloc] init];
-		[self.view addSubview:view];
-		slider = view;
-		[slider border1Px];
-		
-		[view mas_makeConstraints:^(MASConstraintMaker *make) {
-			make.top.equalTo(self.view.mas_safeAreaLayoutGuideTop).offset(100);
-			make.left.right.equalTo(self.view);
-			make.height.mas_equalTo(140);
-		}];
-		
-		UILabel *label = [[UILabel alloc] init];
-		label.text = @"Audio Range Slider ↓";
-		[self.view addSubview:label];
-		[label mas_makeConstraints:^(MASConstraintMaker *make) {
-			make.leading.equalTo(self->slider.mas_leading).offset(15);
-			make.bottom.equalTo(self->slider.mas_top).offset(-5);
-		}];
-	}
-	
-	/* debug feature */
-	[slider border1Px];
-}
+@property (assign, nonatomic) NSUInteger minimumRange;
+
+@property (assign, nonatomic) NSUInteger beginSeconds;
+@property (assign, nonatomic) NSUInteger endSeconds;
+
+@property (strong, nonatomic) UIColor *selectedColor;
+@property (strong, nonatomic) UIColor *color;
+
+- (void)initial;
 
 @end

@@ -25,6 +25,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <LYSoundtrack/LYAudioRangeSlider.h>
 
 
 @interface LYSoundtrack : NSObject

@@ -20,7 +20,7 @@ Sound visual lib.
 
 	s.ios.deployment_target = '8.0'
 
-	s.source_files = 'LYSoundtrack/Classes/*'
+	s.source_files = 'LYSoundtrack/Classes/range_slider/*', 'LYSoundtrack/Classes/*'
   
 	# s.resource_bundles = {
 	#   'LYSoundtrack' => ['LYSoundtrack/Assets/*.png']
@@ -31,5 +31,6 @@ Sound visual lib.
 	# s.dependency 'AFNetworking', '~> 2.3'
   
 	s.frameworks = 'UIKit', 'AVFoundation'
-  
+	s.dependency 'LYCategory'
+	
 end
