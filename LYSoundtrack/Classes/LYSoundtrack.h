@@ -26,8 +26,18 @@
 
 #import <Foundation/Foundation.h>
 #import <LYSoundtrack/LYAudioRangeSlider.h>
+#import <AVFoundation/AVFoundation.h>
 
 
 @interface LYSoundtrack : NSObject
+
+/**
+ singleton
+
+ @return shared instance
+ */
++ (instancetype)kit;
+
+- (AVAsset *)assetFromFile:(NSString *)filepath;
 
 @end

@@ -25,7 +25,45 @@
 //
 
 #import "LYSoundtrack.h"
+#import <AVFoundation/AVFoundation.h>
+
 
 @implementation LYSoundtrack
+
+// MARK: - INIT
+
+- (instancetype)init {
+	if (self = [super init]) {
+	}
+	return self;
+}
+
++ (instancetype)kit {
+	
+	static LYSoundtrack *sharedLYSoundtrack;
+	
+	static dispatch_once_t onceToken;
+	dispatch_once(&onceToken, ^{
+		sharedLYSoundtrack = [[LYSoundtrack alloc] init];
+	});
+	
+	return sharedLYSoundtrack;
+}
+
+// MARK: - METHOD
+
+- (AVAsset *)assetFromFile:(NSString *)filepath {
+	
+	// INPUT CHECK
+	if (filepath == nil
+		|| [filepath isKindOfClass:[NSString class]] == NO
+		|| [filepath isEqualToString:@""]
+		|| [[NSFileManager defaultManager] fileExistsAtPath:filepath] == NO) {
+		NSLog(@"LYSoundtrack - ERROR - filepath=%@", filepath);
+		return nil;
+	}
+	
+	return [AVAsset assetWithURL:[NSURL URLWithString:filepath]];
+}
 
 @end

@@ -65,9 +65,6 @@
 			make.bottom.equalTo(self->slider.mas_top).offset(-5);
 		}];
 	}
-	
-	/* debug feature */
-	[slider border1Px];
 }
 
 @end
