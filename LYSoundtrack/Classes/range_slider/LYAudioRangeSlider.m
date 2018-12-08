@@ -35,12 +35,45 @@
 	__weak UIImageView *ivBgLeft;
 	__weak UIImageView *ivBgRight;
 	__weak UIImageView *ivHighlighted;
+	
+	CGFloat previousX;
 }
 @end
 
 @implementation LYAudioRangeSlider
 
 // MARK: - ACTION
+
+- (void)sliderDragged:(UIPanGestureRecognizer *)gesture {
+	
+	switch (gesture.state) {
+		case UIGestureRecognizerStateEnded: {
+			previousX = gesture.view.frame.origin.x;
+		} break;
+		case UIGestureRecognizerStateBegan: {
+		} break;
+		case UIGestureRecognizerStateChanged: {
+			CGPoint tspt = [gesture translationInView:gesture.view];
+			CGPoint rtpt = _slider.center;
+			rtpt.x = MAX(MIN(previousX + tspt.x, _size.width), 0);
+			_slider.center = rtpt;
+		} break;
+		default:
+			break;
+	}
+	
+	CGRect rect = CGRectZero;
+	
+	// LEFT
+	rect = ivBgLeft.frame;
+	rect.size.width = _slider.frame.origin.x;
+	ivBgLeft.frame = rect;
+	
+	// RIGHT
+	rect = ivBgRight.frame;
+	rect.origin.x = CGRectGetMaxX(_slider.frame);
+	ivBgRight.frame = rect;
+}
 
 // MARK: - INIT
 
@@ -79,8 +112,10 @@
 	{
 		// MARK: BACKGROUND IMAGE LEFT
 		UIImageView *imageview = [[UIImageView alloc] init];
+		imageview.clipsToBounds = YES;
 		[self addSubview:imageview];
 		ivBgLeft = imageview;
+		ivBgLeft.contentMode = UIViewContentModeLeft;
 		
 		[imageview mas_makeConstraints:^(MASConstraintMaker *make) {
 			make.top.bottom.equalTo(self);
@@ -91,8 +126,10 @@
 	{
 		// MARK: BACKGROUND IMAGE RIGHT
 		UIImageView *imageview = [[UIImageView alloc] init];
+		imageview.clipsToBounds = YES;
 		[self addSubview:imageview];
 		ivBgRight = imageview;
+		ivBgRight.contentMode = UIViewContentModeRight;
 		
 		[imageview mas_makeConstraints:^(MASConstraintMaker *make) {
 			make.top.bottom.equalTo(self);
@@ -107,13 +144,25 @@
 		[self addSubview:view];
 		_slider = view;
 		
-		[view mas_makeConstraints:^(MASConstraintMaker *make) {
-			make.top.bottom.equalTo(self);
-			make.leading.equalTo(self->ivBgLeft.mas_trailing);
-			make.trailing.equalTo(self->ivBgRight.mas_leading);
-			make.width.mas_greaterThanOrEqualTo(self->_minimumRange);
-		}];
+		_slider.frame = (CGRect){0, 0, _minimumRange, _size.height};
+		
+//		[view mas_makeConstraints:^(MASConstraintMaker *make) {
+//			make.top.bottom.equalTo(self);
+//			make.leading.equalTo(self->ivBgLeft.mas_trailing);
+//			make.trailing.equalTo(self->ivBgRight.mas_leading);
+//			make.width.mas_greaterThanOrEqualTo(self->_minimumRange);
+//		}];
+		
+		UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(sliderDragged:)];
+		[_slider addGestureRecognizer:pan];
 	}
+	
+	[ivBgRight border1Px];
+	[ivBgLeft border1Px];
+	[_slider border1Px];
+	ivBgLeft.backgroundColor = [UIColor colorWithHex:@"#ff0000" andAlpha:0.2];
+	ivBgRight.backgroundColor = [UIColor colorWithHex:@"#00ff00" andAlpha:0.2];
+	_slider.backgroundColor = [UIColor colorWithWhite:0 alpha:0.3];
 }
 
 // MARK: - METHOD
@@ -136,28 +185,57 @@
 }
 
 - (void)setFrame:(CGRect)frame {
-	_size = frame.size;
+	frame.size.width = MAX(_minimumRange, MIN(frame.size.width, WIDTH));
 	[super setFrame:frame];
+	_size = frame.size;
+	
+	ivBgLeft.frame = (CGRect){0, 0, 0, _size.height};
+	_slider.frame = (CGRect){CGRectGetMaxX(ivBgLeft.frame), 0, _minimumRange, _size.height};
+	ivBgRight.frame = (CGRect){CGRectGetMaxX(_slider.frame), 0, _size.width - CGRectGetMaxX(_slider.frame), _size.height};
 }
 
 // MARK: PROPERTY
 
 - (void)setMinimumRange:(NSUInteger)minimumRange {
-	_minimumRange = minimumRange;
+	_minimumRange = MAX(MIN(minimumRange, _size.width), 3);
 	
-	[_slider mas_remakeConstraints:^(MASConstraintMaker *make) {
-		make.top.bottom.equalTo(self);
-		make.leading.equalTo(self->ivBgLeft.mas_trailing);
-		make.trailing.equalTo(self->ivBgRight.mas_leading);
-		make.width.mas_greaterThanOrEqualTo(self->_minimumRange);
-	}];
+//	_slider.frame = (CGRect){0, 0, _minimumRange, _size.height};
+	
+	ivBgLeft.frame = (CGRect){0, 0, 0, _size.height};
+	_slider.frame = (CGRect){CGRectGetMaxX(ivBgLeft.frame), 0, _minimumRange, _size.height};
+	ivBgRight.frame = (CGRect){CGRectGetMaxX(_slider.frame), 0, _size.width - CGRectGetMaxX(_slider.frame), _size.height};
+	
+//	CGPoint pt = _slider.center;
+//	pt.x = _minimumRange * 0.5;
+//	_slider.center = pt;
 }
 
 // MARK: PRIVATE METHOD
 
 // MARK: - DELEGATE
 
-// MARK:
+// MARK: TOUCH
+/*
+- (BOOL)beginTrackingWithTouch:(UITouch *)touch withEvent:(UIEvent *)event {
+	
+	CGPoint point = [touch locationInView:self];
+	
+	if (CGRectContainsPoint(_slider.frame, point)) {
+		
+	}
+	
+	return YES;
+}
+
+- (BOOL)continueTrackingWithTouch:(UITouch *)touch withEvent:(UIEvent *)event {
+	
+	return YES;
+}
+
+- (void)endTrackingWithTouch:(UITouch *)touch withEvent:(UIEvent *)event {
+	
+}
+*/
 
 // MARK: - NOTIFICATION
 

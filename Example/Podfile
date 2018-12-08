@@ -3,7 +3,7 @@ inhibit_all_warnings!
 
 platform :ios, '11.0'
 
-target 'LYSoundtrack_Example' do
+target 'demo' do
 	pod 'LYSoundtrack', :path => '../'
 	pod 'LYCore'
 end
