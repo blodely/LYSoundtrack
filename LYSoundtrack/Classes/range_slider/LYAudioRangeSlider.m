@@ -26,9 +26,16 @@
 
 #import "LYAudioRangeSlider.h"
 #import <LYCategory/LYCategory.h>
+#import <Masonry/Masonry.h>
+#import "LYSoundtrack.h"
 
 
-@interface LYAudioRangeSlider () {}
+@interface LYAudioRangeSlider () {
+	
+	__weak UIImageView *ivBgLeft;
+	__weak UIImageView *ivBgRight;
+	__weak UIImageView *ivHighlighted;
+}
 @end
 
 @implementation LYAudioRangeSlider
@@ -46,10 +53,80 @@
 
 - (void)initial {
 	
-	self.backgroundColor = [UIColor clearColor];
+	{
+		self.backgroundColor = [UIColor clearColor];
+		
+		_minimumSeconds = 0;
+		_maximumSeconds = 3;
+		_minimumRange = 1;
+		_beginSeconds = 0;
+		_endSeconds = 1;
+		_selectedColor = [UIColor orangeColor];
+		_color = [UIColor lightGrayColor];
+	}
+	
+	{
+		// MARK: FOREGROUND IMAGE
+		UIImageView *imageview = [[UIImageView alloc] init];
+		[self addSubview:imageview];
+		ivHighlighted = imageview;
+		
+		[imageview mas_makeConstraints:^(MASConstraintMaker *make) {
+			make.edges.equalTo(self);
+		}];
+	}
+	
+	{
+		// MARK: BACKGROUND IMAGE LEFT
+		UIImageView *imageview = [[UIImageView alloc] init];
+		[self addSubview:imageview];
+		ivBgLeft = imageview;
+		
+		[imageview mas_makeConstraints:^(MASConstraintMaker *make) {
+			make.top.bottom.equalTo(self);
+			make.left.equalTo(self);
+		}];
+	}
+	
+	{
+		// MARK: BACKGROUND IMAGE RIGHT
+		UIImageView *imageview = [[UIImageView alloc] init];
+		[self addSubview:imageview];
+		ivBgRight = imageview;
+		
+		[imageview mas_makeConstraints:^(MASConstraintMaker *make) {
+			make.top.bottom.equalTo(self);
+			make.right.equalTo(self);
+		}];
+	}
+	
+	{
+		// MARK: SLIDER VIEW
+		UIView *view = [[UIView alloc] init];
+		view.backgroundColor = [UIColor clearColor];
+		[self addSubview:view];
+		_slider = view;
+		
+		[view mas_makeConstraints:^(MASConstraintMaker *make) {
+			make.top.bottom.equalTo(self);
+			make.leading.equalTo(self->ivBgLeft.mas_trailing);
+			make.trailing.equalTo(self->ivBgRight.mas_leading);
+			make.width.mas_greaterThanOrEqualTo(self->_minimumRange);
+		}];
+	}
 }
 
 // MARK: - METHOD
+
+- (void)setupAudioVisual {
+	// SETUP AUDIO VISUAL IMAGES
+	[[LYSoundtrack kit] generateAudioAsset:_asset exportSize:_size backgroundColor:_color highlightColor:_selectedColor equalizerImages:^(UIImage *highlighted, UIImage *background) {
+		
+		self->ivBgLeft.image = background;
+		self->ivBgRight.image = background;
+		self->ivHighlighted.image = highlighted;
+	}];
+}
 
 // MARK: OVERRIDE
 
@@ -59,10 +136,22 @@
 }
 
 - (void)setFrame:(CGRect)frame {
+	_size = frame.size;
 	[super setFrame:frame];
 }
 
 // MARK: PROPERTY
+
+- (void)setMinimumRange:(NSUInteger)minimumRange {
+	_minimumRange = minimumRange;
+	
+	[_slider mas_remakeConstraints:^(MASConstraintMaker *make) {
+		make.top.bottom.equalTo(self);
+		make.leading.equalTo(self->ivBgLeft.mas_trailing);
+		make.trailing.equalTo(self->ivBgRight.mas_leading);
+		make.width.mas_greaterThanOrEqualTo(self->_minimumRange);
+	}];
+}
 
 // MARK: PRIVATE METHOD
 

@@ -25,9 +25,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <AVFoundation/AVFoundation.h>
 
 
 @interface LYAudioRangeSlider : UIControl
+
+@property (strong, nonatomic) AVAsset *asset;
+@property (assign, nonatomic) CGSize size;
 
 @property (assign, nonatomic) NSUInteger minimumSeconds;
 @property (assign, nonatomic) NSUInteger maximumSeconds;
@@ -40,6 +44,10 @@
 @property (strong, nonatomic) UIColor *selectedColor;
 @property (strong, nonatomic) UIColor *color;
 
+@property (weak, nonatomic) UIView *slider;
+
 - (void)initial;
+
+- (void)setupAudioVisual;
 
 @end
