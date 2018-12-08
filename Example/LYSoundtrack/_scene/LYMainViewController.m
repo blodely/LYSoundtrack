@@ -67,4 +67,17 @@
 	}
 }
 
+- (void)viewDidLoad {
+	[super viewDidLoad];
+	
+	slider.size = (CGSize){WIDTH, 140};
+	slider.asset = [AVAsset assetWithURL:[NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"20098215197535" ofType:@"mp3"]]];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+	[super viewWillAppear:animated];
+	
+	[slider setupAudioVisual];
+}
+
 @end

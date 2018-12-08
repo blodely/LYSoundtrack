@@ -14,8 +14,9 @@
 		6003F598195388D20070C39A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6003F596195388D20070C39A /* InfoPlist.strings */; };
 		6003F59A195388D20070C39A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6003F599195388D20070C39A /* main.m */; };
 		6003F59E195388D20070C39A /* LYAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6003F59D195388D20070C39A /* LYAppDelegate.m */; };
-		6003F5A9195388D20070C39A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6003F5A8195388D20070C39A /* Images.xcassets */; };
 		71719F9F1E33DC2100824A3D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 71719F9D1E33DC2100824A3D /* LaunchScreen.storyboard */; };
+		894E489E21BBB3950094F02A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 894E489B21BBB3950094F02A /* Images.xcassets */; };
+		894E489F21BBB3950094F02A /* 20098215197535.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 894E489D21BBB3950094F02A /* 20098215197535.mp3 */; };
 		89D7A5D521BAA01F008C552B /* LYMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89D7A5D321BAA01F008C552B /* LYMainViewController.m */; };
 /* End PBXBuildFile section */
 
@@ -33,9 +34,10 @@
 		6003F59B195388D20070C39A /* LYSoundtrack-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "LYSoundtrack-Prefix.pch"; sourceTree = "<group>"; };
 		6003F59C195388D20070C39A /* LYAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LYAppDelegate.h; sourceTree = "<group>"; };
 		6003F59D195388D20070C39A /* LYAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LYAppDelegate.m; sourceTree = "<group>"; };
-		6003F5A8195388D20070C39A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		6003F5AF195388D20070C39A /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		71719F9E1E33DC2100824A3D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		894E489B21BBB3950094F02A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		894E489D21BBB3950094F02A /* 20098215197535.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = 20098215197535.mp3; sourceTree = "<group>"; };
 		89D7A5D321BAA01F008C552B /* LYMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LYMainViewController.m; sourceTree = "<group>"; };
 		89D7A5D421BAA01F008C552B /* LYMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LYMainViewController.h; sourceTree = "<group>"; };
 		8E1D667B87AAB3842C4A87A9 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
@@ -97,8 +99,8 @@
 				6003F59C195388D20070C39A /* LYAppDelegate.h */,
 				6003F59D195388D20070C39A /* LYAppDelegate.m */,
 				89D7A5D221BAA01F008C552B /* _scene */,
+				894E489921BBB3950094F02A /* _resource */,
 				71719F9D1E33DC2100824A3D /* LaunchScreen.storyboard */,
-				6003F5A8195388D20070C39A /* Images.xcassets */,
 				6003F594195388D20070C39A /* Supporting Files */,
 			);
 			name = "Example for LYSoundtrack";
@@ -133,6 +135,31 @@
 				E1E51919451C34B869ED9BD2 /* Pods-LYSoundtrack_Example.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		894E489921BBB3950094F02A /* _resource */ = {
+			isa = PBXGroup;
+			children = (
+				894E489A21BBB3950094F02A /* image */,
+				894E489C21BBB3950094F02A /* sound */,
+			);
+			path = _resource;
+			sourceTree = "<group>";
+		};
+		894E489A21BBB3950094F02A /* image */ = {
+			isa = PBXGroup;
+			children = (
+				894E489B21BBB3950094F02A /* Images.xcassets */,
+			);
+			path = image;
+			sourceTree = "<group>";
+		};
+		894E489C21BBB3950094F02A /* sound */ = {
+			isa = PBXGroup;
+			children = (
+				894E489D21BBB3950094F02A /* 20098215197535.mp3 */,
+			);
+			path = sound;
 			sourceTree = "<group>";
 		};
 		89D7A5D221BAA01F008C552B /* _scene */ = {
@@ -205,8 +232,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				894E489E21BBB3950094F02A /* Images.xcassets in Resources */,
+				894E489F21BBB3950094F02A /* 20098215197535.mp3 in Resources */,
 				71719F9F1E33DC2100824A3D /* LaunchScreen.storyboard in Resources */,
-				6003F5A9195388D20070C39A /* Images.xcassets in Resources */,
 				6003F598195388D20070C39A /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -240,20 +268,24 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-LYSoundtrack_Example/Pods-LYSoundtrack_Example-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/AFNetworking/AFNetworking.framework",
+				"${BUILT_PRODUCTS_DIR}/EZAudio/EZAudio.framework",
 				"${BUILT_PRODUCTS_DIR}/FCFileManager/FCFileManager.framework",
 				"${BUILT_PRODUCTS_DIR}/LYCategory/LYCategory.framework",
 				"${BUILT_PRODUCTS_DIR}/LYCore/LYCore.framework",
 				"${BUILT_PRODUCTS_DIR}/LYSoundtrack/LYSoundtrack.framework",
 				"${BUILT_PRODUCTS_DIR}/Masonry/Masonry.framework",
+				"${BUILT_PRODUCTS_DIR}/TPCircularBuffer/TPCircularBuffer.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AFNetworking.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/EZAudio.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FCFileManager.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/LYCategory.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/LYCore.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/LYSoundtrack.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Masonry.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TPCircularBuffer.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
