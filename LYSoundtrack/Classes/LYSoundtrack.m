@@ -26,6 +26,7 @@
 
 #import "LYSoundtrack.h"
 #import <AVFoundation/AVFoundation.h>
+#import <LYCategory/LYCategory.h>
 
 
 @implementation LYSoundtrack
@@ -64,6 +65,85 @@
 	}
 	
 	return [AVAsset assetWithURL:[NSURL URLWithString:filepath]];
+}
+
+- (void)generateAudioAsset:(AVAsset *)asset exportSize:(CGSize)size backgroundColor:(UIColor *)bgcolor highlightColor:(UIColor *)highlightedColor equalizerImages:(void (^)(UIImage *, UIImage *))complete {
+	
+	if (asset == nil || [asset isKindOfClass:[AVAsset class]] == NO) {
+		NSLog(@"LYSoundtrack - ERROR - ASSET");
+		return;
+	}
+	
+	if (size.width <= 0 || size.height <= 0) {
+		NSLog(@"LYSoundtrack - ERROR - SIZE ZERO");
+		return;
+	}
+	
+	if (complete == nil) {
+		NSLog(@"LYSoundtrack - WARNING - COMPLETE NOT FOUND");
+		return;
+	}
+	
+	CGFloat width = 6;
+	CGFloat radius = width * 0.5;
+	CGFloat padding = 4;
+	NSUInteger count = (NSUInteger)(size.width / (width + padding));
+	NSMutableArray<NSNumber *> *heights = [NSMutableArray arrayWithCapacity:1];
+	for (NSInteger i = 0; i < count; i++) {
+		[heights addObject:@([NSNumber randomIntBetween:radius * 2 and:(size.height - padding - padding)])];
+	}
+	
+	// BEGIN DRAWING
+	UIGraphicsBeginImageContextWithOptions(size, NO, 0);
+	CGContextRef context = UIGraphicsGetCurrentContext();
+	CGContextSetFillColorWithColor(context, bgcolor.CGColor);
+	CGContextSetStrokeColorWithColor(context, bgcolor.CGColor);
+	
+	for (NSInteger i = 0; i < count; i++) {
+		NSInteger height = heights[i].integerValue;
+		CGFloat top = (size.height - height) * 0.5 - radius + padding;
+		CGFloat left = padding + i * (width + padding);
+		
+		CGContextMoveToPoint(context, left, top);
+		CGContextAddArc(context, left + radius, top, radius, M_PI, 0, 0);
+		CGContextAddLineToPoint(context, left + width, top + height - radius * 2);
+		CGContextAddArc(context, left + radius, top + height - radius * 2, radius, 0, M_PI, 0);
+		CGContextClosePath(context);
+		
+		CGContextFillPath(context);
+	}
+	
+	UIImage *bgimg = UIGraphicsGetImageFromCurrentImageContext();
+	// END DRAWING
+	UIGraphicsEndImageContext();
+	
+	
+	// BEGIN DRAWING
+	UIGraphicsBeginImageContextWithOptions(size, NO, 0);
+	CGContextRef fcontext = UIGraphicsGetCurrentContext();
+	CGContextSetFillColorWithColor(fcontext, highlightedColor.CGColor);
+	CGContextSetStrokeColorWithColor(fcontext, highlightedColor.CGColor);
+	
+	for (NSInteger i = 0; i < count; i++) {
+		NSInteger height = heights[i].integerValue;
+		CGFloat top = (size.height - height) * 0.5 - radius + padding;
+		CGFloat left = padding + i * (width + padding);
+		
+		CGContextMoveToPoint(fcontext, left, top);
+		CGContextAddArc(fcontext, left + radius, top, radius, M_PI, 0, 0);
+		CGContextAddLineToPoint(fcontext, left + width, top + height - radius * 2);
+		CGContextAddArc(fcontext, left + radius, top + height - radius * 2, radius, 0, M_PI, 0);
+		CGContextClosePath(fcontext);
+		
+		CGContextFillPath(fcontext);
+	}
+	
+	UIImage *fgimg = UIGraphicsGetImageFromCurrentImageContext();
+	// END DRAWING
+	UIGraphicsEndImageContext();
+	
+	// RETURN
+	complete(fgimg, bgimg);
 }
 
 @end

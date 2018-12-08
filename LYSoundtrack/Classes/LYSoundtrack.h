@@ -27,6 +27,8 @@
 #import <Foundation/Foundation.h>
 #import <LYSoundtrack/LYAudioRangeSlider.h>
 #import <AVFoundation/AVFoundation.h>
+#import <UIKit/UIKit.h>
+#import <CoreGraphics/CoreGraphics.h>
 
 
 @interface LYSoundtrack : NSObject
@@ -39,5 +41,11 @@
 + (instancetype)kit;
 
 - (AVAsset *)assetFromFile:(NSString *)filepath;
+
+- (void)generateAudioAsset:(AVAsset *)asset
+				exportSize:(CGSize)size
+		   backgroundColor:(UIColor *)bgcolor
+			highlightColor:(UIColor *)highlightedColor
+		   equalizerImages:(void (^)(UIImage *highlighted, UIImage *background))complete;
 
 @end
