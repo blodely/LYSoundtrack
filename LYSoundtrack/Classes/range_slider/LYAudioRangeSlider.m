@@ -55,27 +55,20 @@
 		case UIGestureRecognizerStateChanged: {
 			CGPoint tspt = [gesture translationInView:gesture.view];
 			CGPoint rtpt = _slider.center;
-			rtpt.x = MAX(MIN(previousX + tspt.x, _size.width - _minimumRange * 0.5), 0 + _minimumRange * 0.5);
+			CGFloat half = (CGFloat)_minimumRange / _maximumSeconds * _size.width * 0.5;
+			rtpt.x = MAX(MIN(previousX + tspt.x, _size.width - half), 0 + half);
 			_slider.center = rtpt;
 		} break;
 		default:
 			break;
 	}
 	
-	CGRect rect = CGRectZero;
+	// SETUP SECONDS
+	_beginSeconds = _slider.frame.origin.x / _size.width * _maximumSeconds;
+	_endSeconds = CGRectGetMaxX(_slider.frame) / _size.width * _maximumSeconds;
 	
-	// LEFT
-	rect = ivBgLeft.frame;
-	rect.origin = CGPointZero;
-	rect.size.width = _slider.frame.origin.x;
-	ivBgLeft.frame = rect;
-	
-	// RIGHT
-	rect = ivBgRight.frame;
-	rect.origin.x = CGRectGetMaxX(_slider.frame);
-	rect.origin.y = 0;
-	rect.size.width = _size.width - rect.origin.x;
-	ivBgRight.frame = rect;
+	// CONFIGURE FRAMES
+	[self resetSliders];
 }
 
 // MARK: - INIT
@@ -90,7 +83,9 @@
 - (void)initial {
 	
 	{
+		// INITIAL VALUES
 		self.backgroundColor = [UIColor clearColor];
+		self.clipsToBounds = YES;
 		
 		_minimumSeconds = 0;
 		_maximumSeconds = 3;
@@ -146,6 +141,7 @@
 		// INITIAL FRAME
 		_slider.frame = (CGRect){0, 0, _minimumRange, _size.height};
 		
+		// REGISTER PAN GESTURE
 		UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(sliderDragged:)];
 		[_slider addGestureRecognizer:pan];
 	}
@@ -163,31 +159,37 @@
 	}];
 }
 
-// MARK: OVERRIDE
-
-- (void)drawRect:(CGRect)rect {
-	[super drawRect:rect];
-	
+- (void)resetSliders {
+	ivBgLeft.frame = (CGRect){0, 0, (CGFloat)_beginSeconds / _maximumSeconds * _size.width, _size.height};
+	_slider.frame = (CGRect){CGRectGetMaxX(ivBgLeft.frame), 0, (CGFloat)_minimumRange / _maximumSeconds * _size.width, _size.height};
+	ivBgRight.frame = (CGRect){CGRectGetMaxX(_slider.frame), 0, _size.width - CGRectGetMaxX(_slider.frame), _size.height};
 }
+
+// MARK: OVERRIDE
 
 - (void)setFrame:(CGRect)frame {
 	frame.size.width = MAX(_minimumRange, MIN(frame.size.width, WIDTH));
 	[super setFrame:frame];
 	_size = frame.size;
 	
-	ivBgLeft.frame = (CGRect){0, 0, 0, _size.height};
-	_slider.frame = (CGRect){CGRectGetMaxX(ivBgLeft.frame), 0, _minimumRange, _size.height};
-	ivBgRight.frame = (CGRect){CGRectGetMaxX(_slider.frame), 0, _size.width - CGRectGetMaxX(_slider.frame), _size.height};
+	[self resetSliders];
 }
 
 // MARK: PROPERTY
 
 - (void)setMinimumRange:(NSUInteger)minimumRange {
 	_minimumRange = MAX(MIN(minimumRange, _size.width), 3);
-	
-	ivBgLeft.frame = (CGRect){0, 0, 0, _size.height};
-	_slider.frame = (CGRect){CGRectGetMaxX(ivBgLeft.frame), 0, _minimumRange, _size.height};
-	ivBgRight.frame = (CGRect){CGRectGetMaxX(_slider.frame), 0, _size.width - CGRectGetMaxX(_slider.frame), _size.height};
+	[self resetSliders];
+}
+
+- (void)setMaximumSeconds:(NSUInteger)maximumSeconds {
+	_maximumSeconds = maximumSeconds;
+	[self resetSliders];
+}
+
+- (void)setMinimumSeconds:(NSUInteger)minimumSeconds {
+	_minimumSeconds = minimumSeconds;
+	[self resetSliders];
 }
 
 // MARK: PRIVATE METHOD
