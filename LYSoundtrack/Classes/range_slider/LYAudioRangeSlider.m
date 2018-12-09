@@ -199,7 +199,9 @@
 		return;
 	}
 	
-	_maximumSeconds = CMTimeGetSeconds(_asset.duration);
+	if (CMTimeGetSeconds(_asset.duration) > 0) {
+		_maximumSeconds = CMTimeGetSeconds(_asset.duration);
+	}
 }
 
 // MARK: PRIVATE METHOD
