@@ -33,10 +33,19 @@
 @interface LYMainViewController () {
 	
 	__weak LYAudioRangeSlider *slider;
+	__weak UILabel *lblValues;
 }
 @end
 
 @implementation LYMainViewController
+
+// MARK: - ACTION
+
+- (void)updateValuesButtonPressed:(id)sender {
+	lblValues.text = [NSString stringWithFormat:@"BEGIN=%@ END=%@", @(slider.beginSeconds), @(slider.endSeconds)];
+}
+
+// MARK: - VIEW LIFE CYCLE
 
 - (void)loadView {
 	[super loadView];
@@ -49,11 +58,11 @@
 		LYAudioRangeSlider *view = [[LYAudioRangeSlider alloc] init];
 		[self.view addSubview:view];
 		slider = view;
-		[slider border1Px];
 		
 		[view mas_makeConstraints:^(MASConstraintMaker *make) {
 			make.top.equalTo(self.view.mas_safeAreaLayoutGuideTop).offset(100);
-			make.left.right.equalTo(self.view);
+			make.left.equalTo(self.view).offset(10);
+			make.right.equalTo(self.view).offset(-10);
 			make.height.mas_equalTo(140);
 		}];
 		
@@ -65,14 +74,42 @@
 			make.bottom.equalTo(self->slider.mas_top).offset(-5);
 		}];
 	}
+	
+	{
+		UILabel *label = [[UILabel alloc] init];
+		[self.view addSubview:label];
+		lblValues = label;
+		
+		[label mas_makeConstraints:^(MASConstraintMaker *make) {
+			make.top.equalTo(self->slider.mas_bottom).offset(15);
+			make.leading.trailing.equalTo(self->slider);
+		}];
+	}
+	
+	{
+		UIButton *button = [UIButton buttonWithType:UIButtonTypeSystem];
+		[button setTitle:@"update values" forState:UIControlStateNormal];
+		[self.view addSubview:button];
+		
+		[button mas_makeConstraints:^(MASConstraintMaker *make) {
+			make.top.equalTo(self->lblValues.mas_bottom).offset(15);
+			make.leading.trailing.equalTo(self->lblValues);
+			make.height.mas_equalTo(44);
+		}];
+		
+		[button addTarget:self action:@selector(updateValuesButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+	}
 }
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
 	
-	slider.size = (CGSize){WIDTH, 140};
+	slider.size = (CGSize){WIDTH - 20, 140};
 	slider.asset = [AVAsset assetWithURL:[NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"20098215197535" ofType:@"mp3"]]];
-	slider.minimumRange = 20;
+	
+	slider.maximumSeconds = 60;
+	slider.minimumSeconds = 0;
+	slider.minimumRange = 16;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
