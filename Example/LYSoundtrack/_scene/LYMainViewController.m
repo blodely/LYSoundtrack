@@ -107,8 +107,6 @@
 	slider.size = (CGSize){WIDTH - 20, 140};
 	slider.asset = [AVAsset assetWithURL:[NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"20098215197535" ofType:@"mp3"]]];
 	
-	slider.maximumSeconds = 60;
-	slider.minimumSeconds = 0;
 	slider.minimumRange = 16;
 }
 

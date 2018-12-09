@@ -192,6 +192,16 @@
 	[self resetSliders];
 }
 
+- (void)setAsset:(AVAsset *)asset {
+	_asset = asset;
+	
+	if (_asset == nil) {
+		return;
+	}
+	
+	_maximumSeconds = CMTimeGetSeconds(_asset.duration);
+}
+
 // MARK: PRIVATE METHOD
 
 // MARK: - DELEGATE
