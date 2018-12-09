@@ -32,6 +32,6 @@ Sound visual lib.
 	
 	s.dependency 'LYCategory'
 	s.dependency 'Masonry'
-	s.dependency 'EZAudio'
+	#s.dependency 'EZAudio'
 	
 end
