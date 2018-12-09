@@ -55,7 +55,7 @@
 		case UIGestureRecognizerStateChanged: {
 			CGPoint tspt = [gesture translationInView:gesture.view];
 			CGPoint rtpt = _slider.center;
-			rtpt.x = MAX(MIN(previousX + tspt.x, _size.width), 0);
+			rtpt.x = MAX(MIN(previousX + tspt.x, _size.width - _minimumRange * 0.5), 0 + _minimumRange * 0.5);
 			_slider.center = rtpt;
 		} break;
 		default:
@@ -66,12 +66,15 @@
 	
 	// LEFT
 	rect = ivBgLeft.frame;
+	rect.origin = CGPointZero;
 	rect.size.width = _slider.frame.origin.x;
 	ivBgLeft.frame = rect;
 	
 	// RIGHT
 	rect = ivBgRight.frame;
 	rect.origin.x = CGRectGetMaxX(_slider.frame);
+	rect.origin.y = 0;
+	rect.size.width = _size.width - rect.origin.x;
 	ivBgRight.frame = rect;
 }
 
@@ -115,12 +118,10 @@
 		imageview.clipsToBounds = YES;
 		[self addSubview:imageview];
 		ivBgLeft = imageview;
-		ivBgLeft.contentMode = UIViewContentModeLeft;
+		ivBgLeft.contentMode = UIViewContentModeTopLeft;
 		
-		[imageview mas_makeConstraints:^(MASConstraintMaker *make) {
-			make.top.bottom.equalTo(self);
-			make.left.equalTo(self);
-		}];
+		// INITIAL FRAME
+		ivBgLeft.frame = (CGRect){0, 0, 0, _size.height};
 	}
 	
 	{
@@ -129,12 +130,10 @@
 		imageview.clipsToBounds = YES;
 		[self addSubview:imageview];
 		ivBgRight = imageview;
-		ivBgRight.contentMode = UIViewContentModeRight;
+		ivBgRight.contentMode = UIViewContentModeTopRight;
 		
-		[imageview mas_makeConstraints:^(MASConstraintMaker *make) {
-			make.top.bottom.equalTo(self);
-			make.right.equalTo(self);
-		}];
+		// INITIAL FRAME
+		ivBgRight.frame = (CGRect){_minimumRange, 0, _size.width - _minimumRange, _size.height};
 	}
 	
 	{
@@ -144,25 +143,12 @@
 		[self addSubview:view];
 		_slider = view;
 		
+		// INITIAL FRAME
 		_slider.frame = (CGRect){0, 0, _minimumRange, _size.height};
-		
-//		[view mas_makeConstraints:^(MASConstraintMaker *make) {
-//			make.top.bottom.equalTo(self);
-//			make.leading.equalTo(self->ivBgLeft.mas_trailing);
-//			make.trailing.equalTo(self->ivBgRight.mas_leading);
-//			make.width.mas_greaterThanOrEqualTo(self->_minimumRange);
-//		}];
 		
 		UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(sliderDragged:)];
 		[_slider addGestureRecognizer:pan];
 	}
-	
-	[ivBgRight border1Px];
-	[ivBgLeft border1Px];
-	[_slider border1Px];
-	ivBgLeft.backgroundColor = [UIColor colorWithHex:@"#ff0000" andAlpha:0.2];
-	ivBgRight.backgroundColor = [UIColor colorWithHex:@"#00ff00" andAlpha:0.2];
-	_slider.backgroundColor = [UIColor colorWithWhite:0 alpha:0.3];
 }
 
 // MARK: - METHOD
@@ -199,43 +185,16 @@
 - (void)setMinimumRange:(NSUInteger)minimumRange {
 	_minimumRange = MAX(MIN(minimumRange, _size.width), 3);
 	
-//	_slider.frame = (CGRect){0, 0, _minimumRange, _size.height};
-	
 	ivBgLeft.frame = (CGRect){0, 0, 0, _size.height};
 	_slider.frame = (CGRect){CGRectGetMaxX(ivBgLeft.frame), 0, _minimumRange, _size.height};
 	ivBgRight.frame = (CGRect){CGRectGetMaxX(_slider.frame), 0, _size.width - CGRectGetMaxX(_slider.frame), _size.height};
-	
-//	CGPoint pt = _slider.center;
-//	pt.x = _minimumRange * 0.5;
-//	_slider.center = pt;
 }
 
 // MARK: PRIVATE METHOD
 
 // MARK: - DELEGATE
 
-// MARK: TOUCH
-/*
-- (BOOL)beginTrackingWithTouch:(UITouch *)touch withEvent:(UIEvent *)event {
-	
-	CGPoint point = [touch locationInView:self];
-	
-	if (CGRectContainsPoint(_slider.frame, point)) {
-		
-	}
-	
-	return YES;
-}
-
-- (BOOL)continueTrackingWithTouch:(UITouch *)touch withEvent:(UIEvent *)event {
-	
-	return YES;
-}
-
-- (void)endTrackingWithTouch:(UITouch *)touch withEvent:(UIEvent *)event {
-	
-}
-*/
+// MARK:
 
 // MARK: - NOTIFICATION
 
