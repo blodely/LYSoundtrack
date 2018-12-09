@@ -90,7 +90,7 @@
 	NSUInteger count = (NSUInteger)(size.width / (width + padding));
 	NSMutableArray<NSNumber *> *heights = [NSMutableArray arrayWithCapacity:1];
 	for (NSInteger i = 0; i < count; i++) {
-		[heights addObject:@([NSNumber randomIntBetween:radius * 2 and:(size.height - padding - padding)])];
+		[heights addObject:@([NSNumber randomIntBetween:radius * 2 + 1 and:(size.height - padding - padding)])];
 	}
 	
 	// BEGIN DRAWING

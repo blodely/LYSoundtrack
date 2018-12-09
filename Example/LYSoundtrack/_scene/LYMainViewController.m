@@ -41,7 +41,7 @@
 
 // MARK: - ACTION
 
-- (void)updateValuesButtonPressed:(id)sender {
+- (void)updateValues:(id)sender {
 	lblValues.text = [NSString stringWithFormat:@"BEGIN=%@ END=%@", @(slider.beginSeconds), @(slider.endSeconds)];
 }
 
@@ -58,6 +58,8 @@
 		LYAudioRangeSlider *view = [[LYAudioRangeSlider alloc] init];
 		[self.view addSubview:view];
 		slider = view;
+		
+		[slider addTarget:self action:@selector(updateValues:) forControlEvents:UIControlEventValueChanged];
 		
 		[view mas_makeConstraints:^(MASConstraintMaker *make) {
 			make.top.equalTo(self.view.mas_safeAreaLayoutGuideTop).offset(100);
@@ -84,20 +86,6 @@
 			make.top.equalTo(self->slider.mas_bottom).offset(15);
 			make.leading.trailing.equalTo(self->slider);
 		}];
-	}
-	
-	{
-		UIButton *button = [UIButton buttonWithType:UIButtonTypeSystem];
-		[button setTitle:@"update values" forState:UIControlStateNormal];
-		[self.view addSubview:button];
-		
-		[button mas_makeConstraints:^(MASConstraintMaker *make) {
-			make.top.equalTo(self->lblValues.mas_bottom).offset(15);
-			make.leading.trailing.equalTo(self->lblValues);
-			make.height.mas_equalTo(44);
-		}];
-		
-		[button addTarget:self action:@selector(updateValuesButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
 	}
 }
 
