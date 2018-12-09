@@ -67,6 +67,9 @@
 	_beginSeconds = _slider.frame.origin.x / _size.width * _maximumSeconds;
 	_endSeconds = CGRectGetMaxX(_slider.frame) / _size.width * _maximumSeconds;
 	
+	// CAUSE VALUE CHANGED EVENT
+	[self sendActionsForControlEvents:UIControlEventValueChanged];
+	
 	// CONFIGURE FRAMES
 	[self resetSliders];
 }
