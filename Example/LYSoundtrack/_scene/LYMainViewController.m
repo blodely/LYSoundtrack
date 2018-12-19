@@ -102,6 +102,7 @@
 	[super viewWillAppear:animated];
 	
 	[slider setupAudioVisual];
+	[self updateValues:nil];
 }
 
 @end
