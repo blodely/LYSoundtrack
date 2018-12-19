@@ -182,6 +182,7 @@
 
 - (void)setMinimumRange:(NSUInteger)minimumRange {
 	_minimumRange = MAX(MIN(minimumRange, _size.width), 3);
+	_maximumSeconds = _minimumSeconds + _minimumRange;
 	[self resetSliders];
 }
 
