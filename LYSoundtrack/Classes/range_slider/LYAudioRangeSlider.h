@@ -28,8 +28,14 @@
 #import <AVFoundation/AVFoundation.h>
 
 
+/**
+ Audio fixed range slider.
+ */
 @interface LYAudioRangeSlider : UIControl
 
+/**
+ audio asset
+ */
 @property (strong, nonatomic) AVAsset *asset;
 @property (assign, nonatomic) CGSize size;
 
