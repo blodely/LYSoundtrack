@@ -54,6 +54,8 @@
 
 - (void)initial;
 
+- (void)resetSliders;
+
 - (void)setupAudioVisual;
 
 @end
