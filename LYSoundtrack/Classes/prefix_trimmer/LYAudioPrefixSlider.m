@@ -25,14 +25,26 @@
 //
 
 #import "LYAudioPrefixSlider.h"
+#import <LYSoundtrack/LYSoundtrack.h>
+
 
 @implementation LYAudioPrefixSlider
 
 - (instancetype)init {
 	if (self = [super init]) {
-		
+		_selectedColor = [UIColor orangeColor];
+		_color = [UIColor lightGrayColor];
 	}
 	return self;
+}
+
+- (void)setupAudioVisual {
+	// SETUP AUDIO VISUAL IMAGES
+	[[LYSoundtrack kit] generateAudioAsset:_asset exportSize:_size backgroundColor:_color highlightColor:_selectedColor sliderEqualizerImages:^(UIImage *highlighted, UIImage *background, UIImage *thumb) {
+		[self setMinimumTrackImage:[background resizableImageWithCapInsets:UIEdgeInsetsMake(0, 15, 0, 0)] forState:UIControlStateNormal];
+		[self setMaximumTrackImage:[highlighted resizableImageWithCapInsets:UIEdgeInsetsMake(0, 0, 0, 15)] forState:UIControlStateNormal];
+		[self setThumbImage:thumb forState:UIControlStateNormal];
+	}];
 }
 
 @end

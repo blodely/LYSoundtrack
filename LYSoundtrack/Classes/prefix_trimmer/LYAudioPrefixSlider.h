@@ -25,8 +25,17 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <AVFoundation/AVFoundation.h>
 
 
 @interface LYAudioPrefixSlider : UISlider
+
+@property (strong, nonatomic) AVAsset *asset;
+@property (assign, nonatomic) CGSize size;
+
+@property (strong, nonatomic) UIColor *selectedColor;
+@property (strong, nonatomic) UIColor *color;
+
+- (void)setupAudioVisual;
 
 @end
