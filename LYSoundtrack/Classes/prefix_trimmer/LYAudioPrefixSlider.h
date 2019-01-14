@@ -1,9 +1,9 @@
 //
-//  LYSoundtrack.h
+//	LYAudioPrefixSlider.h
 //  LYSoundtrack
 //
-//	CREATED BY LUO YU ON 2018-12-07.
-//	COPYRIGHT © 2018 LUO YU <INDIE.LUO@GMAIL.COM>. ALL RIGHTS RESERVED.
+//	CREATED BY LUO YU ON 2019-01-14.
+//	COPYRIGHT © 2018-2019 LUO YU <INDIE.LUO@GMAIL.COM>. ALL RIGHTS RESERVED.
 //
 //	Permission is hereby granted, free of charge, to any person obtaining a copy
 //	of this software and associated documentation files (the "Software"), to deal
@@ -24,29 +24,9 @@
 //	THE SOFTWARE.
 //
 
-#import <Foundation/Foundation.h>
-#import <AVFoundation/AVFoundation.h>
 #import <UIKit/UIKit.h>
-#import <CoreGraphics/CoreGraphics.h>
-#import <LYSoundtrack/LYAudioRangeSlider.h>
-#import <LYSoundtrack/LYAudioPrefixSlider.h>
 
 
-@interface LYSoundtrack : NSObject
-
-/**
- singleton
-
- @return shared instance
- */
-+ (instancetype)kit;
-
-- (AVAsset *)assetFromFile:(NSString *)filepath;
-
-- (void)generateAudioAsset:(AVAsset *)asset
-				exportSize:(CGSize)size
-		   backgroundColor:(UIColor *)bgcolor
-			highlightColor:(UIColor *)highlightedColor
-		   equalizerImages:(void (^)(UIImage *highlighted, UIImage *background))complete;
+@interface LYAudioPrefixSlider : UISlider
 
 @end

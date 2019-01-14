@@ -20,7 +20,7 @@ Sound visual lib.
 
 	s.ios.deployment_target = '8.0'
 
-	s.source_files = 'LYSoundtrack/Classes/range_slider/*', 'LYSoundtrack/Classes/*'
+	s.source_files = 'LYSoundtrack/Classes/range_slider/*', 'LYSoundtrack/Classes/prefix_trimmer/*', 'LYSoundtrack/Classes/*'
   
 	# s.resource_bundles = {
 	#   'LYSoundtrack' => ['LYSoundtrack/Assets/*.png']
