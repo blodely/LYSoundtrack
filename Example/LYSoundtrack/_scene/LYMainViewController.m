@@ -34,6 +34,8 @@
 	
 	__weak LYAudioRangeSlider *slider;
 	__weak UILabel *lblValues;
+	
+	__weak LYAudioPrefixSlider *trimmer;
 }
 @end
 
@@ -87,13 +89,28 @@
 			make.leading.trailing.equalTo(self->slider);
 		}];
 	}
+	
+	{
+		LYAudioPrefixSlider *view = [[LYAudioPrefixSlider alloc] init];
+		[self.view addSubview:view];
+		trimmer = view;
+		
+		[view mas_makeConstraints:^(MASConstraintMaker *make) {
+			make.top.equalTo(self->lblValues.mas_bottom).offset(15);
+			make.left.equalTo(self.view).offset(10);
+			make.right.equalTo(self.view).offset(-10);
+			make.height.mas_equalTo(140);
+		}];
+	}
+	
+	[trimmer border1Px];
 }
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
 	
-	slider.size = (CGSize){WIDTH - 20, 140};
-	slider.asset = [AVAsset assetWithURL:[NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"20098215197535" ofType:@"mp3"]]];
+	slider.size = trimmer.size = (CGSize){WIDTH - 20, 140};
+	slider.asset = trimmer.asset = [AVAsset assetWithURL:[NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"20098215197535" ofType:@"mp3"]]];
 	
 	slider.minimumRange = 16;
 }
@@ -102,6 +119,7 @@
 	[super viewWillAppear:animated];
 	
 	[slider setupAudioVisual];
+	[trimmer setupAudioVisual];
 	[self updateValues:nil];
 }
 
