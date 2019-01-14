@@ -13,6 +13,12 @@ LYSoundtrack is available through [CocoaPods](https://cocoapods.org). <br>
 To install it, simply add the following line to your Podfile:
 
 ```ruby
+pod 'LYSoundtrack'
+```
+
+To use bleeding edge version:
+
+```ruby
 pod 'LYSoundtrack', :git => 'https://github.com/blodely/LYSoundtrack.git'
 ```
 
