@@ -146,4 +146,18 @@
 	complete(fgimg, bgimg);
 }
 
+- (void)generateAudioAsset:(AVAsset *)asset exportSize:(CGSize)size backgroundColor:(UIColor *)bgcolor highlightColor:(UIColor *)highlightedColor sliderEqualizerImages:(void (^)(UIImage *, UIImage *, UIImage *))complete {
+	
+	[self generateAudioAsset:asset exportSize:size backgroundColor:bgcolor highlightColor:highlightedColor equalizerImages:^(UIImage *highlighted, UIImage *background) {
+		// BEGIN DRAWING
+		UIGraphicsBeginImageContextWithOptions(CGSizeMake(30, size.height), NO, 0);
+		UIImage *thumbImg = UIGraphicsGetImageFromCurrentImageContext();
+		// END DRAWING
+		UIGraphicsEndImageContext();
+		
+		// RETURN
+		complete(highlighted, background, thumbImg);
+	}];
+}
+
 @end

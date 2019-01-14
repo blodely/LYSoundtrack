@@ -49,4 +49,10 @@
 			highlightColor:(UIColor *)highlightedColor
 		   equalizerImages:(void (^)(UIImage *highlighted, UIImage *background))complete;
 
+- (void)generateAudioAsset:(AVAsset *)asset
+				exportSize:(CGSize)size
+		   backgroundColor:(UIColor *)bgcolor
+			highlightColor:(UIColor *)highlightedColor
+	 sliderEqualizerImages:(void (^)(UIImage *highlighted, UIImage *background, UIImage *thumb))complete;
+
 @end
