@@ -25,9 +25,151 @@
 //
 
 #import "LYAudioBeginSelector.h"
+#import <LYSoundtrack/LYSoundtrack.h>
+#import <LYCategory/LYCategory.h>
+#import <Masonry/Masonry.h>
+
+
+@interface LYAudioBeginSelector () <UIScrollViewDelegate> {
+	__weak UIScrollView *svCont;
+	__weak UIImageView *ivHighlight;
+	__weak UIImageView *ivNormal;
+	
+	float widthPerSecond;
+	LYCCompletion blockRelocated;
+}
+@end
 
 @implementation LYAudioBeginSelector
 
+- (instancetype)init {
+	if (self = [super init]) {
+		[self initial];
+	}
+	return self;
+}
 
+- (void)initial {
+	
+	{
+		_selectedColor = [UIColor orangeColor];
+		_color = [UIColor lightGrayColor];
+		widthPerSecond = 0;
+	}
+	
+	{
+		UIScrollView *scroll = [[UIScrollView alloc] init];
+		[self addSubview:scroll];
+		svCont = scroll;
+		
+		svCont.backgroundColor = [UIColor clearColor];
+		svCont.showsHorizontalScrollIndicator = NO;
+		svCont.showsVerticalScrollIndicator = NO;
+		svCont.bounces = NO;
+		svCont.delegate = self;
+		
+		[scroll mas_makeConstraints:^(MASConstraintMaker *make) {
+			make.edges.equalTo(self);
+		}];
+	}
+	
+	{
+		UIImageView *view = [[UIImageView alloc] init];
+		[svCont addSubview:view];
+		ivNormal = view;
+		
+		view.frame = (CGRect){0, 0, WIDTH, 100};
+		view.contentMode = UIViewContentModeTopLeft;
+		view.clipsToBounds = YES;
+	}
+	
+	{
+		UIImageView *view = [[UIImageView alloc] init];
+		[svCont addSubview:view];
+		ivHighlight = view;
+		
+		view.frame = (CGRect){0, 0, WIDTH, 100};
+		view.contentMode = UIViewContentModeTopLeft;
+		view.clipsToBounds = YES;
+	}
+}
+
+// MARK: - METHOD
+
+- (void)setupAudioVisual {
+	// SETUP AUDIO VISUAL IMAGES
+	svCont.contentSize = _size;
+	ivNormal.frame = (CGRect){0, 0, _size.width, _size.height};
+	ivHighlight.frame = (CGRect){0, 0, 0, _size.height};
+	
+	[[LYSoundtrack kit] generateAudioAsset:_asset exportSize:_size backgroundColor:_color highlightColor:_selectedColor equalizerImages:^(UIImage *highlighted, UIImage *background) {
+		ivNormal.image = background;
+		ivHighlight.image = highlighted;
+	}];
+}
+
+- (void)updateCursor:(float)second {
+	if (second < _begin || second > _end) {
+		NSLog(@"NOT ALLOW");
+		return;
+	}
+	
+	ivHighlight.frame = (CGRect){0, 0, second * widthPerSecond, _size.height};
+}
+
+- (void)relocatedBeginning:(void (^)(void))action {
+	blockRelocated = action;
+}
+
+// MARK: PROPERTY
+
+- (void)setFileDuration:(float)fileDuration {
+	_fileDuration = fileDuration;
+	
+	if (_fileDuration > 0) {
+		widthPerSecond = round(_size.width / _fileDuration * 1000) * 0.001;
+	}
+}
+
+- (void)setSize:(CGSize)size {
+	_size = size;
+	
+	if (_fileDuration > 0) {
+		widthPerSecond = round(_size.width / _fileDuration * 1000) * 0.001;
+	}
+}
+
+// MARK: - DELEGATE
+
+// MARK: UIScrollViewDelegate
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+	
+	float offsetx = scrollView.contentOffset.x;
+	
+	_begin = round(offsetx / _size.width * _fileDuration * 1000) * 0.001;
+	_end = round((offsetx + svCont.frame.size.width) / _size.width * _fileDuration * 1000) * 0.001;
+}
+
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
+	if (decelerate == NO) {
+		[self changedEvent];
+	}
+}
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+	[self changedEvent];
+}
+
+- (void)changedEvent {
+	
+	ivHighlight.frame = (CGRect){0, 0, _begin * widthPerSecond, _size.height};
+	
+	if (blockRelocated != nil) {
+		blockRelocated();
+	}
+	
+	[self sendActionsForControlEvents:UIControlEventValueChanged];
+}
 
 @end

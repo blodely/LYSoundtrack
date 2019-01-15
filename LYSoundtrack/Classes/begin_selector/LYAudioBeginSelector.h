@@ -25,8 +25,25 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <AVFoundation/AVFoundation.h>
 
 
-@interface LYAudioBeginSelector : UIView
+@interface LYAudioBeginSelector : UIControl
+
+@property (strong, nonatomic) AVAsset *asset;
+@property (assign, nonatomic) CGSize size;
+
+@property (strong, nonatomic) UIColor *selectedColor;
+@property (strong, nonatomic) UIColor *color;
+
+- (void)setupAudioVisual;
+
+
+@property (nonatomic, assign) float fileDuration;
+@property (nonatomic, readonly) float begin;
+@property (nonatomic, readonly) float end;
+
+- (void)updateCursor:(float)second;
+- (void)relocatedBeginning:(void (^)(void))action;
 
 @end
