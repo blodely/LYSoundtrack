@@ -3,7 +3,7 @@
 
 Pod::Spec.new do |s|
 	s.name             = 'LYSoundtrack'
-	s.version          = '1.0.0'
+	s.version          = '1.0.1'
 	s.summary          = 'LYSoundtrack lib.'
 
 	s.description      = <<-DESC
@@ -20,7 +20,7 @@ Sound visual lib.
 
 	s.ios.deployment_target = '8.0'
 
-	s.source_files = 'LYSoundtrack/Classes/range_slider/*', 'LYSoundtrack/Classes/prefix_trimmer/*', 'LYSoundtrack/Classes/*'
+	s.source_files = 'LYSoundtrack/Classes/range_slider/*', 'LYSoundtrack/Classes/prefix_trimmer/*', 'LYSoundtrack/Classes/begin_selector/*', 'LYSoundtrack/Classes/*'
   
 	# s.resource_bundles = {
 	#   'LYSoundtrack' => ['LYSoundtrack/Assets/*.png']
