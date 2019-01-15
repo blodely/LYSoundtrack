@@ -126,14 +126,12 @@
 - (void)setAsset:(AVAsset *)asset {
 	_asset = asset;
 	
-	_fileDuration = CMTimeGetSeconds(_asset.duration);
-	
-	if (_fileDuration > 0) {
+	if (CMTimeGetSeconds(_asset.duration) > 0) {
+		_fileDuration = CMTimeGetSeconds(_asset.duration);
 		widthPerSecond = round(_size.width / _fileDuration * 1000) * 0.001;
 	}
 }
 
-/*
 - (void)setFileDuration:(float)fileDuration {
 	_fileDuration = fileDuration;
 	
@@ -141,7 +139,6 @@
 		widthPerSecond = round(_size.width / _fileDuration * 1000) * 0.001;
 	}
 }
-*/
 
 - (void)setSize:(CGSize)size {
 	_size = size;
