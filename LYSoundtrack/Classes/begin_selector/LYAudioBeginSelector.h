@@ -39,7 +39,7 @@
 - (void)setupAudioVisual;
 
 
-@property (nonatomic, assign) float fileDuration;
+@property (nonatomic, readonly) float fileDuration;
 @property (nonatomic, readonly) float begin;
 @property (nonatomic, readonly) float end;
 
