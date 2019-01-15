@@ -36,6 +36,10 @@
 	__weak UILabel *lblValues;
 	
 	__weak LYAudioPrefixSlider *trimmer;
+	
+	__weak LYAudioBeginSelector *selector;
+	__weak UILabel *lblSelValues;
+	float cursor;
 }
 @end
 
@@ -45,6 +49,7 @@
 
 - (void)updateValues:(id)sender {
 	lblValues.text = [NSString stringWithFormat:@"BEGIN=%@ END=%@", @(slider.beginSeconds), @(slider.endSeconds)];
+	lblSelValues.text = [NSString stringWithFormat:@"BEGIN=%@ END=%@", @(selector.begin), @(selector.end)];
 }
 
 // MARK: - VIEW LIFE CYCLE
@@ -103,14 +108,51 @@
 		}];
 	}
 	
+	{
+		LYAudioBeginSelector *view = [[LYAudioBeginSelector alloc] init];
+		[self.view addSubview:view];
+		selector = view;
+		
+		[view mas_makeConstraints:^(MASConstraintMaker *make) {
+			make.top.equalTo(self->trimmer.mas_bottom).offset(15);
+			make.left.equalTo(self.view);
+			make.right.equalTo(self.view);
+			make.height.mas_equalTo(100);
+		}];
+		
+//		[selector addTarget:self action:@selector(updateValues:) forControlEvents:UIControlEventValueChanged];
+		
+		[selector relocatedBeginning:^{
+			self->cursor = self->selector.begin;
+			[self performSelector:@selector(play) withObject:nil afterDelay:0.1];
+		}];
+	}
+	
+	{
+		UILabel *label = [[UILabel alloc] init];
+		[self.view addSubview:label];
+		lblSelValues = label;
+		[label mas_makeConstraints:^(MASConstraintMaker *make) {
+			make.top.equalTo(self->selector.mas_bottom).offset(15);
+			make.left.equalTo(self.view).offset(15);
+		}];
+	}
+	
 	[trimmer border1Px];
+	[selector border1Px];
 }
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
 	
+	AVAsset *asset = [AVAsset assetWithURL:[NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"20098215197535" ofType:@"mp3"]]];
+
 	slider.size = trimmer.size = (CGSize){WIDTH - 20, 140};
-	slider.asset = trimmer.asset = [AVAsset assetWithURL:[NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"20098215197535" ofType:@"mp3"]]];
+
+	selector.fileDuration = CMTimeGetSeconds(asset.duration);
+	selector.size = (CGSize){floor(CMTimeGetSeconds(asset.duration) * (WIDTH / 16.0)), 100};
+
+	slider.asset = trimmer.asset = selector.asset = asset;
 	
 	slider.minimumRange = 16;
 }
@@ -120,7 +162,20 @@
 	
 	[slider setupAudioVisual];
 	[trimmer setupAudioVisual];
+	[selector setupAudioVisual];
 	[self updateValues:nil];
+}
+
+- (void)play {
+	
+	cursor = cursor + 0.1;
+	if (cursor > selector.end) {
+		// BREAK
+		cursor = selector.begin;
+	}
+	
+	[selector updateCursor:cursor];
+	[self performSelector:@selector(play) withObject:nil afterDelay:0.1];
 }
 
 @end

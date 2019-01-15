@@ -21,7 +21,7 @@ PODS:
     - FCFileManager (~> 1.0.20)
     - LYCategory
     - Masonry (~> 1.1.0)
-  - LYSoundtrack (1.0.0):
+  - LYSoundtrack (1.0.1):
     - LYCategory
     - Masonry
   - Masonry (1.1.0)
@@ -47,7 +47,7 @@ SPEC CHECKSUMS:
   FCFileManager: e0f73316e6aa2eb04d2ff4caa75fe7df1ae44270
   LYCategory: 97fe1511b84c7597a96155a080cd76ff49f523f0
   LYCore: 1dd11496efcb0fa106c1293fb4c5c67c5ddc835e
-  LYSoundtrack: 00db1fd3720fcffef138e2144716f7b8a7c54116
+  LYSoundtrack: 08acc0fab47b9b9ed048f05751cb060267c97e41
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
 
 PODFILE CHECKSUM: 4a1cbf4c287f4e5c9190bac6dd1f548e5a3f579e
