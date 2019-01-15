@@ -121,6 +121,11 @@
 	blockRelocated = action;
 }
 
+- (void)reset {
+	_begin = 0;
+	ivHighlight.frame = (CGRect){0, 0, 0, _size.height};
+}
+
 // MARK: PROPERTY
 
 - (void)setAsset:(AVAsset *)asset {

@@ -46,4 +46,6 @@
 - (void)updateCursor:(float)second;
 - (void)relocatedBeginning:(void (^)(void))action;
 
+- (void)reset;
+
 @end
