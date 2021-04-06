@@ -3,7 +3,7 @@
 
 Pod::Spec.new do |s|
 	s.name             = 'LYSoundtrack'
-	s.version          = '1.0.1'
+	s.version          = '1.12.0'
 	s.summary          = 'LYSoundtrack lib.'
 
 	s.description      = <<-DESC
@@ -18,7 +18,7 @@ Sound visual lib.
 	s.source           = { :git => 'https://github.com/blodely/LYSoundtrack.git', :tag => s.version.to_s }
 	s.social_media_url = 'https://weibo.com/blodely'
 
-	s.ios.deployment_target = '8.0'
+	s.ios.deployment_target = '9.0'
 
 	s.source_files = 'LYSoundtrack/Classes/range_slider/*', 'LYSoundtrack/Classes/prefix_trimmer/*', 'LYSoundtrack/Classes/begin_selector/*', 'LYSoundtrack/Classes/*'
   
@@ -30,7 +30,7 @@ Sound visual lib.
   
 	s.frameworks = 'UIKit', 'AVFoundation'
 	
-	s.dependency 'LYCategory'
+	s.dependency 'LYCategory', '~>1.12'
 	s.dependency 'Masonry'
 	#s.dependency 'EZAudio'
 	
