@@ -1,28 +1,28 @@
 PODS:
-  - AFNetworking (3.2.1):
-    - AFNetworking/NSURLSession (= 3.2.1)
-    - AFNetworking/Reachability (= 3.2.1)
-    - AFNetworking/Security (= 3.2.1)
-    - AFNetworking/Serialization (= 3.2.1)
-    - AFNetworking/UIKit (= 3.2.1)
-  - AFNetworking/NSURLSession (3.2.1):
+  - AFNetworking (4.0.1):
+    - AFNetworking/NSURLSession (= 4.0.1)
+    - AFNetworking/Reachability (= 4.0.1)
+    - AFNetworking/Security (= 4.0.1)
+    - AFNetworking/Serialization (= 4.0.1)
+    - AFNetworking/UIKit (= 4.0.1)
+  - AFNetworking/NSURLSession (4.0.1):
     - AFNetworking/Reachability
     - AFNetworking/Security
     - AFNetworking/Serialization
-  - AFNetworking/Reachability (3.2.1)
-  - AFNetworking/Security (3.2.1)
-  - AFNetworking/Serialization (3.2.1)
-  - AFNetworking/UIKit (3.2.1):
+  - AFNetworking/Reachability (4.0.1)
+  - AFNetworking/Security (4.0.1)
+  - AFNetworking/Serialization (4.0.1)
+  - AFNetworking/UIKit (4.0.1):
     - AFNetworking/NSURLSession
   - FCFileManager (1.0.20)
-  - LYCategory (1.2.39)
-  - LYCore (1.0.34):
-    - AFNetworking (~> 3.2.1)
+  - LYCategory (1.12.0)
+  - LYCore (1.12.4):
+    - AFNetworking (~> 4.0)
     - FCFileManager (~> 1.0.20)
-    - LYCategory
+    - LYCategory (~> 1.12)
     - Masonry (~> 1.1.0)
-  - LYSoundtrack (1.0.1):
-    - LYCategory
+  - LYSoundtrack (1.12.0):
+    - LYCategory (~> 1.12)
     - Masonry
   - Masonry (1.1.0)
 
@@ -31,7 +31,7 @@ DEPENDENCIES:
   - LYSoundtrack (from `../`)
 
 SPEC REPOS:
-  https://github.com/cocoapods/specs.git:
+  trunk:
     - AFNetworking
     - FCFileManager
     - LYCategory
@@ -43,13 +43,13 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  AFNetworking: b6f891fdfaed196b46c7a83cf209e09697b94057
+  AFNetworking: 7864c38297c79aaca1500c33288e429c3451fdce
   FCFileManager: e0f73316e6aa2eb04d2ff4caa75fe7df1ae44270
-  LYCategory: 97fe1511b84c7597a96155a080cd76ff49f523f0
-  LYCore: 1dd11496efcb0fa106c1293fb4c5c67c5ddc835e
-  LYSoundtrack: 08acc0fab47b9b9ed048f05751cb060267c97e41
+  LYCategory: 8f347904040c575ba421d12be0445236dda940a7
+  LYCore: 1bd3c74ef6607b37b817db132a159f251f04f561
+  LYSoundtrack: 4fd025d48342722b3c0e195e581ecca5219ff7d1
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
 
-PODFILE CHECKSUM: 4a1cbf4c287f4e5c9190bac6dd1f548e5a3f579e
+PODFILE CHECKSUM: 2690387daa566938a719803c127517b784e88758
 
-COCOAPODS: 1.5.3
+COCOAPODS: 1.10.1
