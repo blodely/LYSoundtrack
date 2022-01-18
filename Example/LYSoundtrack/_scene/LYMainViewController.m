@@ -26,8 +26,6 @@
 
 #import "LYMainViewController.h"
 #import <LYSoundtrack/LYSoundtrack.h>
-#import <Masonry/Masonry.h>
-#import <LYCore/LYCore.h>
 
 
 @interface LYMainViewController () {
@@ -63,62 +61,59 @@
 	
 	{
 		LYAudioRangeSlider *view = [[LYAudioRangeSlider alloc] init];
+		view.translatesAutoresizingMaskIntoConstraints = NO;
 		[self.view addSubview:view];
 		slider = view;
 		
 		[slider addTarget:self action:@selector(updateValues:) forControlEvents:UIControlEventValueChanged];
 		
-		[view mas_makeConstraints:^(MASConstraintMaker *make) {
-			make.top.equalTo(self.view.mas_safeAreaLayoutGuideTop).offset(100);
-			make.left.equalTo(self.view).offset(10);
-			make.right.equalTo(self.view).offset(-10);
-			make.height.mas_equalTo(140);
-		}];
+		[view.topAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.topAnchor constant:100].active = YES;
+		[view.leftAnchor constraintEqualToAnchor:self.view.leftAnchor constant:10].active = YES;
+		[view.rightAnchor constraintEqualToAnchor:self.view.rightAnchor constant:-10].active = YES;
+		[view.heightAnchor constraintEqualToConstant:140].active = YES;
 		
 		UILabel *label = [[UILabel alloc] init];
+		label.translatesAutoresizingMaskIntoConstraints = NO;
 		label.text = @"Audio Range Slider ↓";
 		[self.view addSubview:label];
-		[label mas_makeConstraints:^(MASConstraintMaker *make) {
-			make.leading.equalTo(self->slider.mas_leading).offset(15);
-			make.bottom.equalTo(self->slider.mas_top).offset(-5);
-		}];
+		
+		[label.leadingAnchor constraintEqualToAnchor:slider.leadingAnchor constant:15].active = YES;
+		[label.bottomAnchor constraintEqualToAnchor:slider.topAnchor constant:-5].active = YES;
 	}
 	
 	{
-		UILabel *label = [[UILabel alloc] init];
-		[self.view addSubview:label];
-		lblValues = label;
+		UILabel *view = [[UILabel alloc] init];
+		view.translatesAutoresizingMaskIntoConstraints = NO;
+		[self.view addSubview:view];
+		lblValues = view;
 		
-		[label mas_makeConstraints:^(MASConstraintMaker *make) {
-			make.top.equalTo(self->slider.mas_bottom).offset(15);
-			make.leading.trailing.equalTo(self->slider);
-		}];
+		[view.topAnchor constraintEqualToAnchor:slider.bottomAnchor constant:15].active = YES;
+		[view.leadingAnchor constraintEqualToAnchor:slider.leadingAnchor].active = YES;
+		[view.trailingAnchor constraintEqualToAnchor:slider.trailingAnchor].active = YES;
 	}
 	
 	{
 		LYAudioPrefixSlider *view = [[LYAudioPrefixSlider alloc] init];
+		view.translatesAutoresizingMaskIntoConstraints = NO;
 		[self.view addSubview:view];
 		trimmer = view;
 		
-		[view mas_makeConstraints:^(MASConstraintMaker *make) {
-			make.top.equalTo(self->lblValues.mas_bottom).offset(15);
-			make.left.equalTo(self.view).offset(10);
-			make.right.equalTo(self.view).offset(-10);
-			make.height.mas_equalTo(140);
-		}];
+		[view.topAnchor constraintEqualToAnchor:lblValues.bottomAnchor constant:15].active = YES;
+		[view.leftAnchor constraintEqualToAnchor:self.view.leftAnchor constant:10].active = YES;
+		[view.rightAnchor constraintEqualToAnchor:self.view.rightAnchor constant:-10].active = YES;
+		[view.heightAnchor constraintEqualToConstant:140].active = YES;
 	}
 	
 	{
 		LYAudioBeginSelector *view = [[LYAudioBeginSelector alloc] init];
+		view.translatesAutoresizingMaskIntoConstraints = NO;
 		[self.view addSubview:view];
 		selector = view;
 		
-		[view mas_makeConstraints:^(MASConstraintMaker *make) {
-			make.top.equalTo(self->trimmer.mas_bottom).offset(15);
-			make.left.equalTo(self.view);
-			make.right.equalTo(self.view);
-			make.height.mas_equalTo(100);
-		}];
+		[view.topAnchor constraintEqualToAnchor:trimmer.bottomAnchor constant:15].active = YES;
+		[view.leftAnchor constraintEqualToAnchor:self.view.leftAnchor].active = YES;
+		[view.rightAnchor constraintEqualToAnchor:self.view.rightAnchor].active = YES;
+		[view.heightAnchor constraintEqualToConstant:100].active = YES;
 		
 //		[selector addTarget:self action:@selector(updateValues:) forControlEvents:UIControlEventValueChanged];
 		
@@ -129,13 +124,13 @@
 	}
 	
 	{
-		UILabel *label = [[UILabel alloc] init];
-		[self.view addSubview:label];
-		lblSelValues = label;
-		[label mas_makeConstraints:^(MASConstraintMaker *make) {
-			make.top.equalTo(self->selector.mas_bottom).offset(15);
-			make.left.equalTo(self.view).offset(15);
-		}];
+		UILabel *view = [[UILabel alloc] init];
+		view.translatesAutoresizingMaskIntoConstraints = NO;
+		[self.view addSubview:view];
+		lblSelValues = view;
+		
+		[view.topAnchor constraintEqualToAnchor:selector.bottomAnchor constant:15].active = YES;
+		[view.leftAnchor constraintEqualToAnchor:self.view.leftAnchor constant:15].active = YES;
 	}
 	
 	[trimmer border1Px];

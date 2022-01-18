@@ -35,7 +35,7 @@
 	
 	_window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
 	
-	_window.rootViewController = [[UINavigationController alloc] initWithRootViewController:[LYMainViewController vc]];
+	_window.rootViewController = [[UINavigationController alloc] initWithRootViewController:[LYMainViewController new]];
 	
 	[_window makeKeyAndVisible];
 	

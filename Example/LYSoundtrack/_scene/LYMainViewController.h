@@ -24,9 +24,9 @@
 //	THE SOFTWARE.
 //
 
-#import <LYCore/LYCore.h>
+#import <LYFactAppCommon/LYFactAppCommon.h>
 
 
-@interface LYMainViewController : LYBaseViewController
+@interface LYMainViewController : FACBaseVC
 
 @end
