@@ -26,7 +26,6 @@
 
 #import "LYAudioRangeSlider.h"
 #import <LYCategory/LYCategory.h>
-#import <Masonry/Masonry.h>
 #import "LYSoundtrack.h"
 
 
@@ -101,13 +100,15 @@
 	
 	{
 		// MARK: FOREGROUND IMAGE
-		UIImageView *imageview = [[UIImageView alloc] init];
-		[self addSubview:imageview];
-		ivHighlighted = imageview;
+		UIImageView *view = [[UIImageView alloc] init];
+		view.translatesAutoresizingMaskIntoConstraints = NO;
+		[self addSubview:view];
+		ivHighlighted = view;
 		
-		[imageview mas_makeConstraints:^(MASConstraintMaker *make) {
-			make.edges.equalTo(self);
-		}];
+		[view.leftAnchor constraintEqualToAnchor:self.leftAnchor].active = YES;
+		[view.rightAnchor constraintEqualToAnchor:self.rightAnchor].active = YES;
+		[view.topAnchor constraintEqualToAnchor:self.topAnchor].active = YES;
+		[view.bottomAnchor constraintEqualToAnchor:self.bottomAnchor].active = YES;
 	}
 	
 	{

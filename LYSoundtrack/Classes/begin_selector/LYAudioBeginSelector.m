@@ -27,7 +27,6 @@
 #import "LYAudioBeginSelector.h"
 #import <LYSoundtrack/LYSoundtrack.h>
 #import <LYCategory/LYCategory.h>
-#import <Masonry/Masonry.h>
 
 
 @interface LYAudioBeginSelector () <UIScrollViewDelegate> {
@@ -58,19 +57,21 @@
 	}
 	
 	{
-		UIScrollView *scroll = [[UIScrollView alloc] init];
-		[self addSubview:scroll];
-		svCont = scroll;
+		UIScrollView *view = [[UIScrollView alloc] init];
+		view.translatesAutoresizingMaskIntoConstraints = NO;
+		view.backgroundColor = [UIColor clearColor];
+		view.showsHorizontalScrollIndicator = NO;
+		view.showsVerticalScrollIndicator = NO;
+		view.bounces = NO;
+		[self addSubview:view];
+		svCont = view;
 		
-		svCont.backgroundColor = [UIColor clearColor];
-		svCont.showsHorizontalScrollIndicator = NO;
-		svCont.showsVerticalScrollIndicator = NO;
-		svCont.bounces = NO;
 		svCont.delegate = self;
 		
-		[scroll mas_makeConstraints:^(MASConstraintMaker *make) {
-			make.edges.equalTo(self);
-		}];
+		[view.leftAnchor constraintEqualToAnchor:self.leftAnchor].active = YES;
+		[view.rightAnchor constraintEqualToAnchor:self.rightAnchor].active = YES;
+		[view.topAnchor constraintEqualToAnchor:self.topAnchor].active = YES;
+		[view.bottomAnchor constraintEqualToAnchor:self.bottomAnchor].active = YES;
 	}
 	
 	{

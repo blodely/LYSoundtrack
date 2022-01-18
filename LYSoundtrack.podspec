@@ -34,7 +34,6 @@ Sound visual lib.
 	s.frameworks = 'UIKit', 'AVFoundation'
 	
 	s.dependency 'LYCategory', '~>1.13'
-	s.dependency 'Masonry'
 	#s.dependency 'EZAudio'
 	
 end
