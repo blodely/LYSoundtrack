@@ -15,14 +15,16 @@ PODS:
   - AFNetworking/UIKit (4.0.1):
     - AFNetworking/NSURLSession
   - FCFileManager (1.0.20)
-  - LYCategory (1.12.0)
-  - LYCore (1.12.4):
+  - JLRoutes (2.1)
+  - LYCategory (1.13.6)
+  - LYCore (1.13.2):
     - AFNetworking (~> 4.0)
     - FCFileManager (~> 1.0.20)
+    - JLRoutes (~> 2.1)
     - LYCategory (~> 1.12)
     - Masonry (~> 1.1.0)
-  - LYSoundtrack (1.12.0):
-    - LYCategory (~> 1.12)
+  - LYSoundtrack (1.13.0):
+    - LYCategory (~> 1.13)
     - Masonry
   - Masonry (1.1.0)
 
@@ -31,9 +33,10 @@ DEPENDENCIES:
   - LYSoundtrack (from `../`)
 
 SPEC REPOS:
-  trunk:
+  https://github.com/CocoaPods/Specs.git:
     - AFNetworking
     - FCFileManager
+    - JLRoutes
     - LYCategory
     - LYCore
     - Masonry
@@ -45,11 +48,12 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   AFNetworking: 7864c38297c79aaca1500c33288e429c3451fdce
   FCFileManager: e0f73316e6aa2eb04d2ff4caa75fe7df1ae44270
-  LYCategory: 8f347904040c575ba421d12be0445236dda940a7
-  LYCore: 1bd3c74ef6607b37b817db132a159f251f04f561
-  LYSoundtrack: 4fd025d48342722b3c0e195e581ecca5219ff7d1
+  JLRoutes: d755245322b94227662ea3e43492fdca94e05c5b
+  LYCategory: 7c1726540f50e8f66d8cafe1e525d1c02d48449c
+  LYCore: 58f57ba1a10ed78b6f7d4f715aa9f1b890608860
+  LYSoundtrack: 640108b5e4845fadc61b7c2e0ecefc2e0096f6ac
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
 
-PODFILE CHECKSUM: 2690387daa566938a719803c127517b784e88758
+PODFILE CHECKSUM: 0aefc5d60485ed44e79a9e799b3a9237a5f089e8
 
-COCOAPODS: 1.10.1
+COCOAPODS: 1.11.2
